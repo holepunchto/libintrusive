@@ -36,6 +36,13 @@ intrusive_ring_remove (intrusive_ring_t *ring);
     cursor = cursor->next == __start ? NULL : cursor->next \
   )
 
+#define intrusive_ring_for_each_reverse(cursor, ring) \
+  for ( \
+    intrusive_ring_t *__start = (ring), *cursor = __start; \
+    cursor != NULL; \
+    cursor = cursor->prev == __start ? NULL : cursor->prev \
+  )
+
 #ifdef __cplusplus
 }
 #endif
