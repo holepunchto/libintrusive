@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stddef.h>
 
 #include "../include/intrusive/ring.h"
@@ -6,6 +7,11 @@ void
 intrusive_ring_init (intrusive_ring_t *ring) {
   ring->next = ring;
   ring->prev = ring;
+}
+
+bool
+intrusive_ring_empty (intrusive_ring_t *ring) {
+  return ring == ring->next;
 }
 
 intrusive_ring_t *

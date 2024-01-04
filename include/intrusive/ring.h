@@ -5,6 +5,7 @@
 extern "C" {
 #endif
 
+#include <stdbool.h>
 #include <stddef.h>
 
 typedef struct intrusive_ring_s intrusive_ring_t;
@@ -16,6 +17,9 @@ struct intrusive_ring_s {
 
 void
 intrusive_ring_init (intrusive_ring_t *ring);
+
+bool
+intrusive_ring_empty (intrusive_ring_t *ring);
 
 intrusive_ring_t *
 intrusive_ring_link (intrusive_ring_t *left, intrusive_ring_t *right);
