@@ -5,7 +5,6 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
 #include <stddef.h>
 
 typedef struct intrusive_ring_s intrusive_ring_t;
