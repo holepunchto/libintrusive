@@ -38,9 +38,9 @@ intrusive_queue_pop (intrusive_queue_t *queue);
 
 #define intrusive_queue_for_each(cursor, queue) \
   for ( \
-    intrusive_queue_node_t *cursor = (queue)->head; \
-    cursor != NULL; \
-    cursor = cursor->next \
+    intrusive_queue_node_t *cursor = (queue)->head, *__next = cursor ? cursor->next : NULL; \
+    cursor; \
+    cursor = __next, __next = cursor ? cursor->next : NULL \
   )
 
 #ifdef __cplusplus

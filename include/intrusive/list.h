@@ -42,16 +42,16 @@ intrusive_list_append (intrusive_list_t *list, intrusive_list_node_t *node);
 
 #define intrusive_list_for_each(cursor, list) \
   for ( \
-    intrusive_list_node_t *cursor = (list)->head; \
-    cursor != NULL; \
-    cursor = cursor->next \
+    intrusive_list_node_t *cursor = (list)->head, *__next = cursor ? cursor->next : NULL; \
+    cursor; \
+    cursor = __next, __next = cursor ? cursor->next : NULL \
   )
 
 #define intrusive_list_for_each_reverse(cursor, list) \
   for ( \
-    intrusive_list_node_t *cursor = (list)->tail; \
-    cursor != NULL; \
-    cursor = cursor->prev \
+    intrusive_list_node_t *cursor = (list)->tail, *__prev = cursor ? cursor->prev : NULL; \
+    cursor; \
+    cursor = __prev, __prev = cursor ? cursor->prev : NULL \
   )
 
 #ifdef __cplusplus

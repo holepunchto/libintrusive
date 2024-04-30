@@ -52,9 +52,9 @@ intrusive_set_delete (intrusive_set_t *set, const void *key);
     idx++ \
   ) \
     for ( \
-      intrusive_set_node_t *cursor = (set)->buckets[idx]; \
-      cursor != NULL; \
-      cursor = cursor->next \
+      intrusive_set_node_t *cursor = (set)->buckets[idx], *__next = cursor ? cursor->next : NULL; \
+      cursor; \
+      cursor = __next, __next = cursor ? cursor->next : NULL \
     )
 
 #ifdef __cplusplus

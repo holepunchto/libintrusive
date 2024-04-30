@@ -37,9 +37,9 @@ intrusive_stack_pop (intrusive_stack_t *stack);
 
 #define intrusive_stack_for_each(cursor, stack) \
   for ( \
-    intrusive_stack_node_t *cursor = (stack)->head; \
-    cursor != NULL; \
-    cursor = cursor->next \
+    intrusive_stack_node_t *cursor = (stack)->head, *__next = cursor ? cursor->next : NULL; \
+    cursor; \
+    cursor = __next, __next = cursor ? cursor->next : NULL \
   )
 
 #ifdef __cplusplus
