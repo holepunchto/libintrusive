@@ -1,13 +1,16 @@
+#include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 
 #include "../include/intrusive/set.h"
 
 void
-intrusive_set_init (intrusive_set_t *set, intrusive_set_node_t **buckets, size_t buckets_len, void *data, intrusive_set_hash_cb hash, intrusive_set_equal_cb equal) {
+intrusive_set_init (intrusive_set_t *set, intrusive_set_node_t **buckets, size_t len, void *data, intrusive_set_hash_cb hash, intrusive_set_equal_cb equal) {
+  assert((len & (len - 1)) == 0);
+
   set->len = 0;
   set->buckets = buckets;
-  set->buckets_len = buckets_len;
+  set->mask = len - 1;
   set->data = data;
   set->hash = hash;
   set->equal = equal;
@@ -20,7 +23,7 @@ intrusive_set_empty (const intrusive_set_t *set) {
 
 intrusive_set_node_t *
 intrusive_set_get (const intrusive_set_t *set, const void *key) {
-  intrusive_set_node_t *node = set->buckets[set->hash(key, set->data) % set->buckets_len];
+  intrusive_set_node_t *node = set->buckets[set->hash(key, set->data) & set->mask];
 
   while (node != NULL && !set->equal(key, node, set->data)) {
     node = node->next;
@@ -36,7 +39,7 @@ intrusive_set_has (const intrusive_set_t *set, const void *key) {
 
 void
 intrusive_set_add (intrusive_set_t *set, const void *key, intrusive_set_node_t *node) {
-  intrusive_set_node_t **bucket = &set->buckets[set->hash(key, set->data) % set->buckets_len];
+  intrusive_set_node_t **bucket = &set->buckets[set->hash(key, set->data) & set->mask];
 
   for (intrusive_set_node_t *next = *bucket, *prev = NULL; next != NULL; prev = next, next = next->next) {
     if (set->equal(key, next, set->data)) {
@@ -62,7 +65,7 @@ intrusive_set_add (intrusive_set_t *set, const void *key, intrusive_set_node_t *
 
 bool
 intrusive_set_delete (intrusive_set_t *set, const void *key) {
-  intrusive_set_node_t **bucket = &set->buckets[set->hash(key, set->data) % set->buckets_len];
+  intrusive_set_node_t **bucket = &set->buckets[set->hash(key, set->data) & set->mask];
 
   for (intrusive_set_node_t *next = *bucket, *prev = NULL; next != NULL; prev = next, next = next->next) {
     if (set->equal(key, next, set->data)) {

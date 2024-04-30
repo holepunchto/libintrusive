@@ -17,7 +17,7 @@ typedef bool (*intrusive_set_equal_cb)(const void *key, const intrusive_set_node
 struct intrusive_set_s {
   size_t len;
   intrusive_set_node_t **buckets;
-  size_t buckets_len;
+  size_t mask;
   intrusive_set_hash_cb hash;
   intrusive_set_equal_cb equal;
   void *data;
@@ -28,7 +28,7 @@ struct intrusive_set_node_s {
 };
 
 void
-intrusive_set_init (intrusive_set_t *set, intrusive_set_node_t **buckets, size_t buckets_len, void *data, intrusive_set_hash_cb hash, intrusive_set_equal_cb equal);
+intrusive_set_init (intrusive_set_t *set, intrusive_set_node_t **buckets, size_t len, void *data, intrusive_set_hash_cb hash, intrusive_set_equal_cb equal);
 
 bool
 intrusive_set_empty (const intrusive_set_t *set);
@@ -48,7 +48,7 @@ intrusive_set_delete (intrusive_set_t *set, const void *key);
 #define intrusive_set_for_each(cursor, idx, set) \
   for ( \
     size_t idx = 0; \
-    idx < (set)->buckets_len; \
+    idx <= (set)->mask; \
     idx++ \
   ) \
     for ( \
