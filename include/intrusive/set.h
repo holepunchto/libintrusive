@@ -52,7 +52,7 @@ intrusive_set_delete (intrusive_set_t *set, const void *key);
     idx++ \
   ) \
     for ( \
-      cursor = (set)->buckets[idx]; \
+      intrusive_set_node_t *cursor = (set)->buckets[idx]; \
       cursor != NULL; \
       cursor = cursor->next \
     )
