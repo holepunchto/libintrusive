@@ -6,7 +6,7 @@
 
 void
 intrusive_set_init (intrusive_set_t *set, intrusive_set_node_t **buckets, size_t len, void *data, intrusive_set_hash_cb hash, intrusive_set_equal_cb equal) {
-  assert((len & (len - 1)) == 0);
+  assert((len & (len - 1)) == 0 && "Bucket count must be a power of 2");
 
   set->len = 0;
   set->buckets = buckets;
