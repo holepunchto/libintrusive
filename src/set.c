@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <string.h>
 
 #include "../include/intrusive/set.h"
 
@@ -14,6 +15,8 @@ intrusive_set_init (intrusive_set_t *set, intrusive_set_node_t **buckets, size_t
   set->data = data;
   set->hash = hash;
   set->equal = equal;
+
+  memset(set->buckets, 0, sizeof(intrusive_set_node_t *) * len);
 }
 
 bool
