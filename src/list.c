@@ -108,3 +108,8 @@ void
 intrusive_list_append (intrusive_list_t *list, intrusive_list_node_t *node) {
   intrusive_list__paste(list, list->tail, node, node, NULL, 1);
 }
+
+void
+intrusive_list_remove (intrusive_list_t *list, intrusive_list_node_t *node) {
+  intrusive_list__cut(list, node, node, 1);
+}

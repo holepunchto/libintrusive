@@ -40,6 +40,9 @@ intrusive_list_prepend (intrusive_list_t *list, intrusive_list_node_t *node);
 void
 intrusive_list_append (intrusive_list_t *list, intrusive_list_node_t *node);
 
+void
+intrusive_list_remove (intrusive_list_t *list, intrusive_list_node_t *node);
+
 #define intrusive_list_for_each(cursor, list) \
   for ( \
     intrusive_list_node_t *cursor = (list)->head, *__next = cursor ? cursor->next : NULL; \
