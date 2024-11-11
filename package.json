@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "libintrusive",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/libintrusive.git"
+  },
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/libintrusive/issues"
+  },
+  "homepage": "https://github.com/holepunchto/libintrusive#readme"
+}
