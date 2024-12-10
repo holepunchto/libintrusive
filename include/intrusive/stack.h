@@ -8,6 +8,13 @@ extern "C" {
 #include <stdbool.h>
 #include <stddef.h>
 
+#define intrusive_stack_for_each(cursor, stack) \
+  for ( \
+    intrusive_stack_node_t *cursor = (stack)->head, *__next = cursor ? cursor->next : NULL; \
+    cursor; \
+    cursor = __next, __next = cursor ? cursor->next : NULL \
+  )
+
 typedef struct intrusive_stack_s intrusive_stack_t;
 typedef struct intrusive_stack_node_s intrusive_stack_node_t;
 
@@ -20,27 +27,45 @@ struct intrusive_stack_node_s {
   intrusive_stack_node_t *prev;
 };
 
-void
-intrusive_stack_init (intrusive_stack_t *stack);
+static inline void
+intrusive_stack_init (intrusive_stack_t *stack) {
+  stack->len = 0;
+  stack->tail = NULL;
+}
 
-bool
-intrusive_stack_empty (const intrusive_stack_t *stack);
+static inline bool
+intrusive_stack_empty (const intrusive_stack_t *list) {
+  return list->len == 0;
+}
 
-void
-intrusive_stack_push (intrusive_stack_t *stack, intrusive_stack_node_t *node);
+static inline void
+intrusive_stack_push (intrusive_stack_t *stack, intrusive_stack_node_t *node) {
+  node->prev = stack->tail;
 
-intrusive_stack_node_t *
-intrusive_stack_peek (intrusive_stack_t *stack);
+  stack->tail = node;
 
-intrusive_stack_node_t *
-intrusive_stack_pop (intrusive_stack_t *stack);
+  stack->len++;
+}
 
-#define intrusive_stack_for_each(cursor, stack) \
-  for ( \
-    intrusive_stack_node_t *cursor = (stack)->head, *__next = cursor ? cursor->next : NULL; \
-    cursor; \
-    cursor = __next, __next = cursor ? cursor->next : NULL \
-  )
+static inline intrusive_stack_node_t *
+intrusive_stack_peek (intrusive_stack_t *stack) {
+  return stack->tail;
+}
+
+static inline intrusive_stack_node_t *
+intrusive_stack_pop (intrusive_stack_t *stack) {
+  intrusive_stack_node_t *node = stack->tail;
+
+  if (node == NULL) return NULL;
+
+  stack->tail = node->prev;
+
+  node->prev = NULL;
+
+  stack->len--;
+
+  return node;
+}
 
 #ifdef __cplusplus
 }

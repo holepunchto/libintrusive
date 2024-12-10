@@ -1,8 +1,8 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "../include/intrusive.h"
-#include "../include/intrusive/ring.h"
+#include "../../include/intrusive.h"
+#include "../../include/intrusive/ring.h"
 
 int
 main () {

@@ -11,7 +11,7 @@ foreach(test IN LISTS tests)
   target_link_libraries(
     ${name}
     PRIVATE
-      intrusive_static
+      intrusive
   )
 
   add_test(
