@@ -59,7 +59,7 @@ intrusive_queue_peek (intrusive_queue_t *queue) {
   return queue->head;
 }
 
-intrusive_queue_node_t *
+static intrusive_queue_node_t *
 intrusive_queue_pop (intrusive_queue_t *queue) {
   intrusive_queue_node_t *node = queue->head;
 
