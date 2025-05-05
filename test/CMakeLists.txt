@@ -1,5 +1,6 @@
 list(APPEND tests
   list/for-each
+  queue/for-each
   ring/for-each
 )
 
