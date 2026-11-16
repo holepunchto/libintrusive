@@ -1,11 +1,11 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "../../include/intrusive.h"
-#include "../../include/intrusive/queue.h"
+#include <intrusive.h>
+#include <intrusive/queue.h>
 
 int
-main () {
+main() {
   struct node {
     int value;
     intrusive_queue_node_t node;
