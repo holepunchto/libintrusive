@@ -10,5 +10,9 @@
   "bugs": {
     "url": "https://github.com/holepunchto/libintrusive/issues"
   },
-  "homepage": "https://github.com/holepunchto/libintrusive#readme"
+  "homepage": "https://github.com/holepunchto/libintrusive#readme",
+  "devDependencies": {
+    "cmake-prelude": "^0.1.1",
+    "cmake-test": "^0.1.0"
+  }
 }

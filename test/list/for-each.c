@@ -1,8 +1,8 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "../../include/intrusive.h"
-#include "../../include/intrusive/list.h"
+#include <intrusive.h>
+#include <intrusive/list.h>
 
 int
 main () {

@@ -1,38 +1,22 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 4.0)
 
-project(intrusive C)
+find_package(cmake-prelude REQUIRED PATHS node_modules/cmake-prelude)
+find_package(cmake-test REQUIRED PATHS node_modules/cmake-test)
 
-add_library(intrusive INTERFACE)
+project(intrusive LANGUAGES C VERSION 0.0.0)
 
-set_target_properties(
+add_library_targets(
   intrusive
-  PROPERTIES
-  C_STANDARD 99
-)
-
-target_sources(
-  intrusive
-  INTERFACE
+  HEADERS
     include/intrusive.h
     include/intrusive/list.h
     include/intrusive/queue.h
     include/intrusive/ring.h
     include/intrusive/set.h
     include/intrusive/stack.h
+  FEATURES
+    c_std_99
+  SOURCES NONE
 )
 
-target_include_directories(
-  intrusive
-  INTERFACE
-    include
-)
-
-install(FILES include/intrusive.h DESTINATION include)
-
-install(DIRECTORY include/intrusive DESTINATION include)
-
-if(PROJECT_IS_TOP_LEVEL)
-  enable_testing()
-
-  add_subdirectory(test)
-endif()
+add_test_subdirectory(test)

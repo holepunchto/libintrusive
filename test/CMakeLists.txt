@@ -1,29 +1,7 @@
-list(APPEND tests
-  list/for-each
-  queue/for-each
-  ring/for-each
+add_test_executables(
+  list/for-each.c
+  queue/for-each.c
+  ring/for-each.c
+  LINK
+    intrusive::headers
 )
-
-foreach(test IN LISTS tests)
-  string(REPLACE "/" "_" name ${test})
-
-  add_executable(${name} ${test}.c)
-
-  target_link_libraries(
-    ${name}
-    PRIVATE
-      intrusive
-  )
-
-  add_test(
-    NAME ${name}
-    COMMAND ${name}
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-  )
-
-  set_tests_properties(
-    ${name}
-    PROPERTIES
-    TIMEOUT 30
-  )
-endforeach()
