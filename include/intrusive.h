@@ -7,8 +7,7 @@ extern "C" {
 
 #define intrusive_entry(ptr, type, member) \
   ( \
-    (type *) ((char *) ptr - offsetof(type, member)) \
-  )
+    (type *) ((char *) ptr - offsetof(type, member)))
 
 #include "intrusive/list.h"
 #include "intrusive/queue.h"

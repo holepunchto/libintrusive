@@ -12,8 +12,7 @@ extern "C" {
   for ( \
     intrusive_queue_node_t *cursor = (queue)->head, *__next = cursor ? cursor->next : NULL; \
     cursor; \
-    cursor = __next, __next = cursor ? cursor->next : NULL \
-  )
+    cursor = __next, __next = cursor ? cursor->next : NULL)
 
 typedef struct intrusive_queue_s intrusive_queue_t;
 typedef struct intrusive_queue_node_s intrusive_queue_node_t;
@@ -29,18 +28,18 @@ struct intrusive_queue_node_s {
 };
 
 static inline void
-intrusive_queue_init (intrusive_queue_t *queue) {
+intrusive_queue_init(intrusive_queue_t *queue) {
   queue->len = 0;
   queue->head = NULL;
 }
 
 static inline bool
-intrusive_queue_empty (const intrusive_queue_t *list) {
+intrusive_queue_empty(const intrusive_queue_t *list) {
   return list->len == 0;
 }
 
 static inline void
-intrusive_queue_push (intrusive_queue_t *queue, intrusive_queue_node_t *node) {
+intrusive_queue_push(intrusive_queue_t *queue, intrusive_queue_node_t *node) {
   if (!queue->head) {
     queue->head = node;
   } else {
@@ -55,12 +54,12 @@ intrusive_queue_push (intrusive_queue_t *queue, intrusive_queue_node_t *node) {
 }
 
 static inline intrusive_queue_node_t *
-intrusive_queue_peek (intrusive_queue_t *queue) {
+intrusive_queue_peek(intrusive_queue_t *queue) {
   return queue->head;
 }
 
 static intrusive_queue_node_t *
-intrusive_queue_pop (intrusive_queue_t *queue) {
+intrusive_queue_pop(intrusive_queue_t *queue) {
   intrusive_queue_node_t *node = queue->head;
 
   if (node == NULL) return NULL;

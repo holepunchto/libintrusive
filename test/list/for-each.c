@@ -5,7 +5,7 @@
 #include <intrusive/list.h>
 
 int
-main () {
+main() {
   struct node {
     int value;
     intrusive_list_node_t node;

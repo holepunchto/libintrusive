@@ -12,15 +12,13 @@ extern "C" {
   for ( \
     intrusive_list_node_t *cursor = (list)->head, *__next = cursor ? cursor->next : NULL; \
     cursor; \
-    cursor = __next, __next = cursor ? cursor->next : NULL \
-  )
+    cursor = __next, __next = cursor ? cursor->next : NULL)
 
 #define intrusive_list_for_each_reverse(cursor, list) \
   for ( \
     intrusive_list_node_t *cursor = (list)->tail, *__prev = cursor ? cursor->prev : NULL; \
     cursor; \
-    cursor = __prev, __prev = cursor ? cursor->prev : NULL \
-  )
+    cursor = __prev, __prev = cursor ? cursor->prev : NULL)
 
 typedef struct intrusive_list_s intrusive_list_t;
 typedef struct intrusive_list_node_s intrusive_list_node_t;
@@ -37,19 +35,19 @@ struct intrusive_list_node_s {
 };
 
 static inline void
-intrusive_list_init (intrusive_list_t *list) {
+intrusive_list_init(intrusive_list_t *list) {
   list->len = 0;
   list->head = NULL;
   list->tail = NULL;
 }
 
 static inline bool
-intrusive_list_empty (const intrusive_list_t *list) {
+intrusive_list_empty(const intrusive_list_t *list) {
   return list->len == 0;
 }
 
 static inline size_t
-intrusive_list_index_of (const intrusive_list_t *list, const intrusive_list_node_t *node) {
+intrusive_list_index_of(const intrusive_list_t *list, const intrusive_list_node_t *node) {
   if (list->tail == node) return list->len - 1;
 
   size_t i = 0;
@@ -64,7 +62,7 @@ intrusive_list_index_of (const intrusive_list_t *list, const intrusive_list_node
 }
 
 static inline intrusive_list_node_t *
-intrusive_list_at (const intrusive_list_t *list, size_t index) {
+intrusive_list_at(const intrusive_list_t *list, size_t index) {
   size_t i;
 
   if (index < list->len / 2) {
@@ -89,7 +87,7 @@ intrusive_list_at (const intrusive_list_t *list, size_t index) {
 }
 
 static inline void
-intrusive_list__cut (intrusive_list_t *list, intrusive_list_node_t *from, intrusive_list_node_t *to, size_t len) {
+intrusive_list__cut(intrusive_list_t *list, intrusive_list_node_t *from, intrusive_list_node_t *to, size_t len) {
   if (from == NULL) return;
 
   if (list->head == from) {
@@ -111,7 +109,7 @@ intrusive_list__cut (intrusive_list_t *list, intrusive_list_node_t *from, intrus
 }
 
 static inline void
-intrusive_list__paste (intrusive_list_t *list, intrusive_list_node_t *left, intrusive_list_node_t *from, intrusive_list_node_t *to, intrusive_list_node_t *right, size_t len) {
+intrusive_list__paste(intrusive_list_t *list, intrusive_list_node_t *left, intrusive_list_node_t *from, intrusive_list_node_t *to, intrusive_list_node_t *right, size_t len) {
   if (from == NULL) return;
 
   if (left) {
@@ -133,17 +131,17 @@ intrusive_list__paste (intrusive_list_t *list, intrusive_list_node_t *left, intr
 }
 
 static inline void
-intrusive_list_prepend (intrusive_list_t *list, intrusive_list_node_t *node) {
+intrusive_list_prepend(intrusive_list_t *list, intrusive_list_node_t *node) {
   intrusive_list__paste(list, NULL, node, node, list->head, 1);
 }
 
 static inline void
-intrusive_list_append (intrusive_list_t *list, intrusive_list_node_t *node) {
+intrusive_list_append(intrusive_list_t *list, intrusive_list_node_t *node) {
   intrusive_list__paste(list, list->tail, node, node, NULL, 1);
 }
 
 static inline void
-intrusive_list_remove (intrusive_list_t *list, intrusive_list_node_t *node) {
+intrusive_list_remove(intrusive_list_t *list, intrusive_list_node_t *node) {
   intrusive_list__cut(list, node, node, 1);
 }
 

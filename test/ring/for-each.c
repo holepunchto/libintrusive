@@ -5,7 +5,7 @@
 #include <intrusive/ring.h>
 
 int
-main () {
+main() {
   struct node {
     int value;
     intrusive_ring_t ring;
